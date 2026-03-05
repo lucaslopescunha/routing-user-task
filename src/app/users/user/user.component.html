@@ -1,6 +1,6 @@
 <div>
     <!--Using routerLink( angular will take over) Angular will block the browser default behavior.-->
-    <a routerLink="/tasks">
+    <a [routerLink]="['/users',user().id]" routerLinkActive="selected">
         <img [src]="imagePath()" [alt]="user().name" />
         <span>{{user().name}}</span>
     </a>
