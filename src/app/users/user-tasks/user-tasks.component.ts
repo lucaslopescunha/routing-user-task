@@ -1,5 +1,5 @@
-import { Component, inject, input } from '@angular/core';
-import { ActivatedRouteSnapshot, ResolveFn, RouterLink, RouterOutlet, RouterStateSnapshot } from '@angular/router';
+import { Component, inject, input, OnInit } from '@angular/core';
+import { ActivatedRoute, ActivatedRouteSnapshot, ResolveFn, RouterLink, RouterOutlet, RouterStateSnapshot } from '@angular/router';
 import { UsersService } from '../users.service';
 
 @Component({
@@ -8,9 +8,25 @@ import { UsersService } from '../users.service';
   templateUrl: './user-tasks.component.html',
   styleUrl: './user-tasks.component.css',
 })
-export class UserTasksComponent {
+export class UserTasksComponent implements OnInit {
   userName = input.required<string>();
   message = input.required<string>();
+  private activatedRoute = inject(ActivatedRoute);
+  ngOnInit(): void {
+    /**
+     * Will re-emit value whenever data changes.
+     * 
+     */
+    this.activatedRoute.data.subscribe({
+
+      next: data => {
+        /**
+         * Data and resolve. Static and dynamic data.
+         */
+        console.log(data);
+      }
+    })
+  }
   /*  
   userId = input.required<string>();
   userName = '';
