@@ -51,6 +51,7 @@ export class TasksService {
       },
       ...prevTasks
     ]);
+    localStorage.setItem('tasks', JSON.stringify(this.tasks()));
   }
 
   removeTask(id: string) {

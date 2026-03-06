@@ -1,6 +1,6 @@
 <p>
-    <a routerLink="./" [queryParams]="{order: order === 'asc' ? 'desc' : 'asc'}"> <!-- ./ means Stay in the same page-->
-        Sort {{ order === 'asc' ? 'Descending': 'Ascending' }}
+    <a routerLink="./" [queryParams]="{order: order() === 'asc' ? 'desc' : 'asc'}"> <!-- ./ means Stay in the same page-->
+        Sort {{ order() === 'asc' ? 'Descending': 'Ascending' }}
     </a>
 </p>
 
