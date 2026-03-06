@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject, input, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, ResolveFn, RouterLink, RouterOutlet, RouterStateSnapshot } from '@angular/router';
 import { map } from 'rxjs';
 import { UsersService } from '../users.service';
 
@@ -21,20 +21,34 @@ export class UserTasksComponent implements OnInit {
 */
   userName = '';
   ngOnInit(): void {
-    console.log('Input Data: '+ this.message());
+    console.log('Input Data: ' + this.message());
     /**
      * this.activatedRoute.snapshot is not a reactive object. Only executed once.
      * You can access directly.
      */
-    console.log('snapshot: ',this.activatedRoute.snapshot);
+    console.log('snapshot: ', this.activatedRoute.snapshot);
     console.log(this.activatedRoute);
     const subscription = this.activatedRoute.paramMap.pipe(map((obj) => obj.get('userId'))).subscribe({
       // paramMap is key/value pair: :userId -> value
       next: userId => {
-        this.userName = this.usersService.users.find( u => u.id === userId)?.name || '';
+        this.userName = this.usersService.users.find(u => u.id === userId)?.name || '';
         //console.log(paramMap.get('userId'));
       }
     });
-    this.destroy.onDestroy(()=> subscription.unsubscribe());
+    this.destroy.onDestroy(() => subscription.unsubscribe());
   }
 }
+/**
+ * This resolve will be called for every navigation action. Whenever this route becomes active,
+ * this function will be called.
+ * @param activatedRoute 
+ */
+export const resolveUserName: ResolveFn<string> = (
+  activatedRoute: ActivatedRouteSnapshot,
+  routerState: RouterStateSnapshot
+) => {
+  const usersService = inject(UsersService);
+  const userName = usersService.users.find(
+    (u) => u.id === activatedRoute.paramMap.get('userId'))?.name || '';
+  return userName;
+};
