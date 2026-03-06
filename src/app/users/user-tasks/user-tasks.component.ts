@@ -1,6 +1,5 @@
-import { Component, DestroyRef, inject, input, OnInit } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, ResolveFn, RouterLink, RouterOutlet, RouterStateSnapshot } from '@angular/router';
-import { map } from 'rxjs';
+import { Component, inject, input } from '@angular/core';
+import { ActivatedRouteSnapshot, ResolveFn, RouterLink, RouterOutlet, RouterStateSnapshot } from '@angular/router';
 import { UsersService } from '../users.service';
 
 @Component({
@@ -9,24 +8,27 @@ import { UsersService } from '../users.service';
   templateUrl: './user-tasks.component.html',
   styleUrl: './user-tasks.component.css',
 })
-export class UserTasksComponent implements OnInit {
-  userId = input.required<string>();
+export class UserTasksComponent {
+  userName = input.required<string>();
   message = input.required<string>();
+  /*  
+  userId = input.required<string>();
+  userName = '';
+  
   private usersService = inject(UsersService);
   private activatedRoute = inject(ActivatedRoute);
   private destroy = inject(DestroyRef);
-
+  */
   /*userName = computed(
     () => this.usersService.users.find(u => u.id === this.userId())?.name);
 */
-  userName = '';
-  ngOnInit(): void {
-    console.log('Input Data: ' + this.message());
+/**  ngOnInit(): void {
+    console.log('Input Data: ' + this.message());*/
     /**
      * this.activatedRoute.snapshot is not a reactive object. Only executed once.
      * You can access directly.
      */
-    console.log('snapshot: ', this.activatedRoute.snapshot);
+    /**console.log('snapshot: ', this.activatedRoute.snapshot);
     console.log(this.activatedRoute);
     const subscription = this.activatedRoute.paramMap.pipe(map((obj) => obj.get('userId'))).subscribe({
       // paramMap is key/value pair: :userId -> value
@@ -36,7 +38,7 @@ export class UserTasksComponent implements OnInit {
       }
     });
     this.destroy.onDestroy(() => subscription.unsubscribe());
-  }
+  }*/
 }
 /**
  * This resolve will be called for every navigation action. Whenever this route becomes active,
