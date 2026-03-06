@@ -20,6 +20,11 @@ export class UserTasksComponent implements OnInit {
 */
   userName = '';
   ngOnInit(): void {
+    /**
+     * this.activatedRoute.snapshot is not a reactive object. Only executed once.
+     * You can access directly.
+     */
+    console.log('snapshot: ',this.activatedRoute.snapshot);
     console.log(this.activatedRoute);
     const subscription = this.activatedRoute.paramMap.pipe(map((obj) => obj.get('userId'))).subscribe({
       // paramMap is key/value pair: :userId -> value
