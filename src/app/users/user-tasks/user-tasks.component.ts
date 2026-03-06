@@ -11,6 +11,7 @@ import { UsersService } from '../users.service';
 })
 export class UserTasksComponent implements OnInit {
   userId = input.required<string>();
+  message = input.required<string>();
   private usersService = inject(UsersService);
   private activatedRoute = inject(ActivatedRoute);
   private destroy = inject(DestroyRef);
@@ -20,6 +21,7 @@ export class UserTasksComponent implements OnInit {
 */
   userName = '';
   ngOnInit(): void {
+    console.log('Input Data: '+ this.message());
     /**
      * this.activatedRoute.snapshot is not a reactive object. Only executed once.
      * You can access directly.

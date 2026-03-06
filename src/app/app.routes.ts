@@ -12,8 +12,13 @@ export const routes: Routes = [
     {
         path: 'users/:userId',
         component: UserTasksComponent,
-
-        children: userRoutes
+        children: userRoutes,
+        data: {
+            /** This will be a message input to UserTasksComponent.
+             * With withComponentInputBinding enabled on app.config.ts
+            */
+            message: 'Hello!' 
+        }
     },
     {
         path: '**',
