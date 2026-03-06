@@ -13,7 +13,16 @@ export const routes: Routes = [
     {
         path: 'users/:userId',
         component: UserTasksComponent,
-        children: [
+
+        children: [ 
+            /**
+             * ajuda a redirecionar http://localhost:4200/users/u1 para http://localhost:4200/users/u1/tasks
+             */
+            {
+                path: '',
+                redirectTo: 'tasks',
+                pathMatch: 'full'
+            },
             {
                 path: 'tasks',
                 component: TasksComponent
