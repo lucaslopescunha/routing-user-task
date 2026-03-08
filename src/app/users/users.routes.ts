@@ -11,7 +11,12 @@ export const userRoutes: Routes = [
     {
         path: 'tasks',
         component: TasksComponent,
-        runGuardsAndResolvers: 'paramsOrQueryParamsChange',
+        /**
+         * to trigger the resolver because neither the path parameters nor query parameters
+         * changed.
+         */
+        runGuardsAndResolvers: 'always',
+//        runGuardsAndResolvers: 'paramsOrQueryParamsChange',
         resolve: {
             userTasks: resolverUserTasks
         }

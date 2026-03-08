@@ -52,9 +52,9 @@ export const resolverUserTasks: ResolveFn<Task[]> = (
       (task) => task.userId === activatedRouteSnapshot.paramMap.get('userId')
     );
   if(order && order === 'asc') {
-    tasks.sort((a, b) => (a.id > b.id ? 1: -1));
+    tasks.sort((a, b) => (a.title.toLowerCase().localeCompare(b.title.toLowerCase())===1 ? 1: -1));
   }  else {
-    tasks.sort((a, b) => (a.id > b.id ? -1: 1));
+    tasks.sort((a, b) => (a.title.toLowerCase().localeCompare(b.title.toLowerCase())===1 ? -1: 1));
   }
   return tasks.length ? tasks: [];
 };
